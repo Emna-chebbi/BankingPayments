@@ -1,0 +1,449 @@
+/* CurrencyInfo.css */
+.currency-info {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.currency-info h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.currency-description {
+  text-align: center;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+/* Controls Section */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.refresh-btn, .retry-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.retry-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.refresh-btn:hover:not(:disabled), .retry-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.refresh-btn:disabled, .retry-btn:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.count-badge {
+  background: #27ae60;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.error-badge {
+  background: #e74c3c;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Error Message Styling */
+.error-message {
+  background: #ffeaa7;
+  border: 1px solid #fdcb6e;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.error-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.error-icon {
+  font-size: 18px;
+}
+
+.error-header strong {
+  color: #e74c3c;
+  font-size: 16px;
+}
+
+.error-details {
+  color: #d63031;
+  font-size: 14px;
+}
+
+/* Loading Animation */
+.loading-container {
+  text-align: center;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e3e3e3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  color: #7f8c8d;
+  font-size: 16px;
+  margin: 0;
+}
+
+.loading-subtext {
+  font-size: 14px !important;
+  color: #95a5a6 !important;
+  margin-top: 10px !important;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: #7f8c8d;
+}
+
+/* Currencies Grid */
+.currencies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Currency Card */
+.currency-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.currency-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.currency-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.error-card {
+  border-left: 4px solid #e74c3c;
+}
+
+.error-card::before {
+  background: #e74c3c;
+}
+
+.na-card {
+  border-left: 4px solid #f39c12;
+}
+
+.na-card::before {
+  background: #f39c12;
+}
+
+/* Country Flag */
+.country-flag {
+  width: 60px;
+  height: 40px;
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(116, 185, 255, 0.3);
+}
+
+/* Currency Details */
+.currency-details {
+  flex: 1;
+}
+
+.country-name {
+  color: #2c3e50;
+  margin: 0 0 15px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.currency-data {
+  space-y: 12px;
+}
+
+.currency-code, .currency-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.label {
+  color: #7f8c8d;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.value {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.na-value {
+  color: #e74c3c;
+  background: #ffeaa7;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.value.code {
+  background: #3498db;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Service Info */
+.service-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.service-type {
+  background: #27ae60;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.timestamp {
+  color: #95a5a6;
+  font-size: 12px;
+}
+
+/* Card Error & Warning */
+.card-error {
+  background: #ffeaa7;
+  border: 1px solid #fdcb6e;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.card-warning {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.card-error small, .card-warning small {
+  color: #856404;
+  font-size: 12px;
+}
+
+/* Footer Note */
+.footer-note {
+  text-align: center;
+  margin-top: 30px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.footer-note p {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .currency-info {
+    padding: 15px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .button-group {
+    justify-content: center;
+  }
+  
+  .stats {
+    justify-content: center;
+  }
+  
+  .currencies-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .currency-code, .currency-name {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .service-info {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .currency-info h2 {
+    font-size: 2rem;
+  }
+  
+  .currency-card {
+    padding: 15px;
+  }
+  
+  .country-name {
+    font-size: 1.1rem;
+  }
+  
+  .refresh-btn, .retry-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
+/* Animation for new cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.currency-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Success state for cards */
+.currency-card:not(.error-card):not(.na-card) .service-type {
+  background: #27ae60;
+}
+
+.currency-card:not(.error-card):not(.na-card) .value.code {
+  background: #3498db;
+}

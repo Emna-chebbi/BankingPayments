@@ -1,0 +1,141 @@
+.transaction-history {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.transaction-history h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.refresh-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.refresh-btn:hover {
+  background: #2980b9;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 40px;
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.no-transactions {
+  text-align: center;
+  padding: 40px;
+  background: #ecf0f1;
+  border-radius: 8px;
+  color: #7f8c8d;
+}
+
+.table-container {
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.transactions-table th {
+  background: #34495e;
+  color: white;
+  padding: 15px 12px;
+  text-align: left;
+  font-weight: 600;
+  border: none;
+}
+
+.transactions-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.even-row {
+  background: #f8f9fa;
+}
+
+.odd-row {
+  background: white;
+}
+
+.transactions-table tr:hover {
+  background: #e3f2fd;
+}
+
+.transaction-id {
+  font-family: monospace;
+  font-size: 12px;
+  color: #2c3e50;
+}
+
+.amount {
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.status {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.status.completed {
+  background: #d5f4e6;
+  color: #27ae60;
+}
+
+.status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.failed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.created {
+  background: #cce7ff;
+  color: #004085;
+}
+
+.error-message {
+  background: #ffeaa7;
+  color: #d63031;
+  padding: 15px;
+  border-radius: 6px;
+  margin: 20px 0;
+  border-left: 4px solid #e17055;
+}
