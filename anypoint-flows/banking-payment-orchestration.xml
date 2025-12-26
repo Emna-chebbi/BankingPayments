@@ -49,7 +49,7 @@ http://www.mulesoft.org/schema/mule/slack http://www.mulesoft.org/schema/mule/sl
 	<http:request-config name="HTTP_Request_configuration4" doc:name="HTTP Request configuration" doc:id="de04899b-30b8-4de7-89d4-84f3cefc0f34" >
 		<http:request-connection protocol="HTTPS" host="api.twilio.com" port="443" >
 			<http:authentication >
-				<http:basic-authentication username="AC3c690b850191f04599a9b390ad7d8f98" password="TWILIO_ACCOUNT_SID" />
+				<http:basic-authentication username="YOUR_TWILIO_USERNAME" password="${env.TWILIO_ACCOUNT_SID}" />
 			</http:authentication>
 		</http:request-connection>
 	</http:request-config>
@@ -392,8 +392,7 @@ output application/x-www-form-urlencoded
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<http:request method="POST" doc:name="Send SMS via Twilio" doc:id="dc2d19cf-5a27-4ea9-ac9c-2a290f80fa60" config-ref="HTTP_Request_configuration4" path="/2010-04-01/Accounts/TWILIO_ACCOUNT_SID/Messages.json">
-		</http:request>
+		<http:request method="POST" doc:name="Send SMS via Twilio" config-ref="HTTP_Request_configuration4" path="/2010-04-01/Accounts/${env.TWILIO_ACCOUNT_SID}/Messages.json">			</http:request>
 		<logger level="INFO" doc:name="Logger" doc:id="41a2b6a4-bb02-478d-ae79-cb997d334f94" message='#["SMS sent successfully"]' />
 	</flow>
 	<flow name="discord-notification" doc:id="1fa69d61-ef12-40fc-8a8b-d2e70680c818" >
