@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:slack="http://www.mulesoft.org/schema/mule/slack" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:email="http://www.mulesoft.org/schema/mule/email"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/slack http://www.mulesoft.org/schema/mule/slack/current/mule-slack.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="14ceb320-7d40-4cb8-96b0-3a2925a547e2" >
+		<http:listener-connection host="localhost" port="8090" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="5b61b083-5f8a-48ca-962b-63dc19577f73">
+		<http:request-connection host="localhost" port="8083" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration1" doc:name="HTTP Request configuration" doc:id="d829fd54-ec13-4790-a11f-11070898593d" >
+		<http:request-connection host="localhost" port="8082" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration2" doc:name="HTTP Request configuration" doc:id="c1f13205-da60-4bb6-96d9-3ea877e4f4a8" >
+		<http:request-connection host="localhost" port="8084" />
+	</http:request-config>
+	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="ed5cd529-92f7-4f05-a2e1-0c80dba8a7b1" >
+		 <jms:active-mq-connection username="admin" password="admin">
+			<jms:factory-configuration />
+		</jms:active-mq-connection>
+	</jms:config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="1f032658-7ed8-47e4-a924-a8bf7afa8e83" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="root" database="bank" />
+	</db:config>
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="86450d8c-e671-4374-a1d0-509a933892ea" >
+		<email:smtp-connection host="smtp.gmail.com" port="587" user="emna.chebby19@gmail.com" password="phgw aagh xdvi bwhb" >
+			<email:properties >
+				<email:property key="mail.smtp.starttls.enable" value="true" />
+				<email:property key="mail.smtp.auth" value="true" />
+			</email:properties>
+		</email:smtp-connection>
+	</email:smtp-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="0af668b6-d1ec-410e-afd5-b44e1bb6ce3d" >
+		<file:connection workingDir="C:\Users\emnac.AETHER\Documents\IRM\3rd_year\Integration SI\logging" />
+	</file:config>
+	<http:request-config name="HTTP_Request_configuration3" doc:name="HTTP Request configuration" doc:id="8765222c-01f0-466b-8c9e-d62619902507" basePath="/services" >
+		<http:request-connection protocol="HTTPS" host="hooks.slack.com" port="443" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration4" doc:name="HTTP Request configuration" doc:id="de04899b-30b8-4de7-89d4-84f3cefc0f34" >
+		<http:request-connection protocol="HTTPS" host="api.twilio.com" port="443" >
+			<http:authentication >
+				<http:basic-authentication username="AC3c690b850191f04599a9b390ad7d8f98" password="3532a54afe1291c85364df88b6338dd5" />
+			</http:authentication>
+		</http:request-connection>
+	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration5" doc:name="HTTP Request configuration" doc:id="dc1ccad5-1e4e-4785-8d24-687010358c97" >
+		<http:request-connection protocol="HTTPS" host="discord.com" port="443" />
+	</http:request-config>
+	<wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="557dce14-7c41-4008-a167-153d535ce808" >
+		<wsc:connection wsdlLocation="http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL" service="CountryInfoService" port="CountryInfoServiceSoap" address="http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso" />
+	</wsc:config>
+	<flow name="banking-payment-orchestrationFlow" doc:id="2dfdee31-0001-4f94-adbc-5756f14262ec" >
+		<http:listener doc:name="Listener" doc:id="357a7587-99d9-4479-9dc2-4b3647082bf5" config-ref="HTTP_Listener_config" path="/payments"/>
+		<logger level="INFO" doc:name="Logger" doc:id="3a6c0aa5-609f-4755-bac7-ad463bdb4849" message='#["Received payment request"]'/>
+		<ee:transform doc:name="Transform Message" doc:id="ee7f2c28-262e-48a7-9579-a345dad9e2c8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+if (sizeOf(payload) > 0)
+    payload
+else
+    {
+        "amount": 1000,
+        "currency": "USD",
+        "fromAccount": "DEBUG_EMPTY", 
+        "toAccount": "DEBUG_EMPTY",
+        "debug_note": "Empty payload received"
+    }]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value='#["tx-" ++ uuid()]' doc:name="Set Variable" doc:id="e409918a-5320-4d80-9b47-57c0784ceed0" variableName="transactionId"/>
+		<set-variable value='#[payload]' doc:name="Set Variable" doc:id="51a212de-c4d8-4d61-b6c9-9272e34b1bdc" variableName="originalPayload"/>
+		<ee:transform doc:name="Transform Message" doc:id="768b7dc0-de6e-427b-a1af-209cea0f54a1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"transactionId": vars.transactionId,
+	"amount": vars.originalPayload.amount as Number,
+	"fromAccount": vars.originalPayload.fromAccount as String,
+	"toAccount": vars.originalPayload.toAccount as String
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Fraud Check Service" doc:id="e9ce470e-1037-4e47-9927-699a26dac57f" config-ref="HTTP_Request_configuration" path="/fraud-check"/>
+		<choice doc:name="Choice" doc:id="47378191-2d45-4866-8341-5d31eaf32cfe" >
+			<when expression='#[payload.fraudStatus == "CLEAR"]'>
+				<ee:transform doc:name="Transform Message" doc:id="38952895-bc78-4aae-b4aa-83f0e3528d18">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"amount": vars.originalPayload.amount as Number,
+	"currency": vars.originalPayload.currency default "USD",
+	"fromAccount": vars.originalPayload.fromAccount,
+	"toAccount": vars.originalPayload.toAccount
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="4c5d6feb-9cc8-49d7-a97a-1f2d1cf5a8be" message="#[&quot;Payload being sent to transaction service: $(write(payload, 'application/json'))&quot;]" />
+				<http:request method="POST" doc:name="Create Transaction" doc:id="7cb415c3-aa9c-46bd-9ebb-0a8a30e9a726" config-ref="HTTP_Request_configuration1" path="/transactions" />
+				<set-variable value="#[payload]" doc:name="Set Variable" doc:id="8fded01b-8d92-4cf9-a1d8-1350f6aa57b4" variableName="transactionResult" />
+				<ee:transform doc:name="Transform Message" doc:id="d86c8535-3bc3-48f8-8ded-aa869a4870c8">
+									<ee:message>
+										<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"eventType": "TRANSACTION_CREATED",
+	"transactionId": vars.transactionId,
+	"amount": vars.originalPayload.amount,
+	"currency": vars.originalPayload.currency,
+	"fromAccount": vars.originalPayload.fromAccount,
+	"toAccount": vars.originalPayload.toAccount,
+	"status": "CREATED",
+	"timestamp": now()
+}]]></ee:set-payload>
+									</ee:message>
+								</ee:transform>
+				<jms:publish doc:name="Publish to Audit Trail" doc:id="d91dfaca-981e-4246-824f-5191ad44c30b" config-ref="JMS_Config" destination="audit.trail.topic" destinationType="TOPIC">
+						</jms:publish>
+				<logger level="INFO" doc:name="Logger" doc:id="4e94be98-0e0d-4247-92fa-cf16f6fd85d8" message='#["Published to audit.trail.topic - Transaction: $(vars.transactionId)"]' />
+				<scatter-gather doc:name="Scatter-Gather" doc:id="a01fea52-d725-4b81-a988-07af893567b2">
+					<route>
+						<ee:transform doc:name="Transform Message" doc:id="4bf861eb-11a9-4d3e-92c9-6a7deaabe0b1">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"transactionId": vars.transactionId,
+	"message": "Transaction of " ++ vars.originalPayload.amount as String ++ " completed successfully from " ++ vars.originalPayload.fromAccount ++ " to " ++ vars.originalPayload.toAccount
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<http:request method="POST" doc:name="Customer Notification" doc:id="9bc7f0ca-975f-4d87-a1cc-1dfa420be118" config-ref="HTTP_Request_configuration2" path="/notify/customer">
+						</http:request>
+						<choice doc:name="Choice" doc:id="dac9d0a0-f2bf-4c86-a2b4-7691cd007d91">
+							<when expression="#[vars.originalPayload.amount &gt; 5000]">
+								<ee:transform doc:name="Transform Message" doc:id="20cbaad8-3f4f-4fda-b089-bd855eab5872">
+									<ee:message>
+										<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"transactionId": vars.transactionId,
+	"message": "Large transaction detected: " ++ vars.originalPayload.amount as String ++ " from " ++ vars.originalPayload.fromAccount
+}]]></ee:set-payload>
+									</ee:message>
+								</ee:transform>
+								<http:request method="POST" doc:name="Compliance Notification" doc:id="4e5b0854-e9ee-46df-9acc-2dfaab8de06b" config-ref="HTTP_Request_configuration2" path="/notify/compliance">
+								</http:request>
+							</when>
+						</choice>
+					</route>
+					<route>
+						<ee:transform doc:name="Transform Message" doc:id="fdbe1a6a-07c7-48e8-a4d3-4cde1ac8c2a9">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"transactionId": vars.transactionId,
+	"message": "Ledger entry created for transaction " ++ vars.transactionId ++ " amount: " ++ vars.originalPayload.amount as String
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<http:request method="POST" doc:name="Ledger Notification" doc:id="d12db793-9377-4c0e-b59b-705845b4dc3a" config-ref="HTTP_Request_configuration2" path="/notify/ledger">
+						</http:request>
+					</route>
+				</scatter-gather>
+				<ee:transform doc:name="Transform Message" doc:id="0afae091-fede-47e5-ac6e-874863487b7b">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"status": "COMPLETED",
+	"transactionId": vars.transactionId,
+	"message": "Payment processed successfully with notifications",
+	"fraudCheck": payload, 
+	"transactionDetails": vars.transactionResult,
+	"notifications": payload 
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<when expression='#[payload.fraudStatus == "SUSPICIOUS"]'>
+				<set-variable value="#[payload]" doc:name="Set Variable" doc:id="3422ab62-db71-4802-ba0c-5db258abe4be" variableName="fraudResult"/>
+				<ee:transform doc:name="Transform Message" doc:id="c86721cd-c740-4e9c-999f-5a3699a8c04d" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"status": "MANUAL_REVIEW_REQUIRED",
+	"transactionId": vars.transactionId,
+	"reason": vars.fraudResult.reason,
+	"message": "Transaction flagged for manual review"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="7724efee-bbe0-4480-9d32-82b81181aebf" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"status": "BLOCKED",
+	"transactionId": vars.transactionId,
+	"reason": payload.reason,
+	"message": "Transaction blocked by fraud detection"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+		<ee:transform doc:name="Transform Message" doc:id="c936a8cd-664a-4d39-ab97-f222c83ba273" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	status: payload.status,
+	transactionId: payload.transactionId default vars.transactionId,
+	message: payload.message,
+	amount: vars.originalPayload.amount,
+	currency: vars.originalPayload.currency,
+	fraudCheck: vars.fraudResult,
+	transactionDetails: vars.transactionResult default null
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="fetching-all-countries" doc:id="3d6c5774-7276-4c6b-a5cb-e42a1312080c" >
+		<http:listener doc:name="Listener" doc:id="f5825df7-7ed8-42bb-a23d-f3c1079992ff" config-ref="HTTP_Listener_config" path="/countries"/>
+		<set-payload value='#[""]' doc:name="Set Payload" doc:id="575eb77f-b27d-4333-8b87-1086b7bfd450" mimeType="application/xml"/>
+		<wsc:consume operation="ListOfCountryNamesByName" doc:name="Consume" doc:id="bba04491-7c33-486f-9c40-65174a74adca" config-ref="Web_Service_Consumer_Config"/>
+		<ee:transform doc:name="Transform Message" doc:id="319e7dd7-c536-4d7d-b5eb-2ac0568f52ae" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+// Let's see the entire structure first
+{
+    countries: payload.body.ListOfCountryNamesByNameResponse.ListOfCountryNamesByNameResult.*tCountryCodeAndName map ((country) -> {
+        sISOCode: country.sISOCode,
+        sName: country.sName
+    })
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="fetching-countries-currencies" doc:id="783fec09-26b8-47f6-b784-3ccc5a6eb655" >
+		<http:listener doc:name="Listener" doc:id="a7d8c725-5f96-4be7-95a9-dc7d7667fbf1" config-ref="HTTP_Listener_config" path="/currency/{countryCode}"/>
+		<ee:transform doc:name="Transform Message" doc:id="6409062d-4b4f-4037-aba4-54359ffe5731" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns ns0 http://www.oorsprong.org/websamples.countryinfo
+---
+{
+	ns0#CountryCurrency: {
+		ns0#sCountryISOCode: attributes.uriParams.countryCode default "US"
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<wsc:consume doc:name="Consume" doc:id="6a87409d-9e63-4482-b4c0-fdeaf4e1a20b" config-ref="Web_Service_Consumer_Config" operation="CountryCurrency"/>
+		<ee:transform doc:name="Transform Message" doc:id="f39d3f6a-294f-47b4-8a38-29bb32241e66" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload.body]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="60fedfc5-cfec-40af-b4e9-17d807464973" message='#["Fetched currency information successfully"]' />
+	</flow>
+	<flow name="file-log" doc:id="0d1870a4-5607-4a01-8e2d-1a9f1ee6447e" >
+		<jms:listener doc:name="File Subscriber" doc:id="4103c4a5-1a4e-44ca-8f3a-35de9453c6ab" config-ref="JMS_Config" destination="audit.trail.topic" numberOfConsumers="1">
+			<jms:consumer-type >
+				<jms:topic-consumer shared="true"/>
+			</jms:consumer-type>
+		</jms:listener>
+		<ee:transform doc:name="Transform Message" doc:id="d6532f05-30c8-41bd-85b7-f5637ce95e38" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "fileName": "audit_" ++ payload.transactionId ++ "_" ++ (now() as String {format: "yyyyMMdd_HHmmss"}) ++ ".json",
+    "fileContent": payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<file:write doc:name="Write Audit File" doc:id="8fa88eb8-03cc-48c0-9f01-06a77b02581c" config-ref="File_Config" path="C:\Users\emnac.AETHER\Documents\IRM\3rd_year\Integration SI\logging\audit-file.txt"/>
+		<logger level="INFO" doc:name="Logger" doc:id="9a3c4c83-1374-47a6-987f-b458418397f0" message='#["File written successfully"]'/>
+	</flow>
+	<flow name="email-notification" doc:id="916be419-b152-4542-8e98-b61c4b21f3ae" >
+		<jms:listener doc:name="Email Subscriber" doc:id="6526a48c-dd31-4249-97d3-a2274d012b57" config-ref="JMS_Config" destination="audit.trail.topic" numberOfConsumers="1">
+			<jms:consumer-type >
+				<jms:topic-consumer shared="true" />
+			</jms:consumer-type>
+		</jms:listener>
+		<ee:transform doc:name="Transform Message" doc:id="8cc4a470-6b8a-43fa-9f72-0e8989bb5590">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"subject": "Transaction Audit: " ++ payload.transactionId,
+	"toAddress": "emna.chebby19@gmail.com",  
+	"body": "Transaction " ++ payload.transactionId ++ 
+	       " of " ++ payload.amount as String ++ " " ++ payload.currency ++ 
+	       " from " ++ payload.fromAccount ++ " to " ++ payload.toAccount ++ 
+	       " was processed at " ++ (now() as String {format: "yyyy-MM-dd HH:mm:ss"})
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<email:send doc:name="Send Audit Email" doc:id="221e6325-27fb-4ed7-9aca-8bfb94614fc9" config-ref="Email_SMTP" fromAddress="emna.chebby19@gmail.com" subject="#[payload.subject]">
+			<email:to-addresses>
+				<email:to-address value="emna.chebby19@gmail.com" />
+			</email:to-addresses>
+			<email:body>
+				<email:content><![CDATA[#[payload.body]]]></email:content>
+			</email:body>
+		</email:send>
+		<logger level="INFO" doc:name="Logger" doc:id="13b46ffd-f139-4ead-a81f-195e7b4cc242" message='#["Email sent successfully"]' />
+	</flow>
+	<flow name="slack-notification" doc:id="e015ce42-f726-4ab6-a55c-76a3dd9cda8c" >
+		<jms:listener doc:name="Slack Subscriber" doc:id="018211a3-c29e-47f5-ab47-314cd3b3de45" config-ref="JMS_Config" destination="audit.trail.topic" numberOfConsumers="1">
+			<jms:consumer-type >
+				<jms:topic-consumer shared="true" />
+			</jms:consumer-type>
+		</jms:listener>
+		<ee:transform doc:name="Transform Message" doc:id="d8128e9b-f290-4c91-8cd8-e85c2a95c557" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "channel": "#banking-alerts",
+    "username": "Banking Bot",
+    "text": "💳 New Transaction Alert!\n" ++
+           "• Transaction: " ++ payload.transactionId ++ "\n" ++
+           "• Amount: " ++ payload.amount as String ++ " " ++ payload.currency ++ "\n" ++
+           "• From: " ++ payload.fromAccount ++ " → To: " ++ payload.toAccount ++ "\n" ++
+           "• Status: " ++ payload.status ++ "\n" ++
+           "• Time: " ++ (now() as String {format: "yyyy-MM-dd HH:mm:ss"}),
+    "icon_emoji": ":bank:"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Send to Slack" doc:id="dd6bce5b-77c1-4349-97ca-b0a5b66b4aea" config-ref="HTTP_Request_configuration3" path="/T0A02LQNEN7/B0A05KT6C0M/zUbAc81RVga3so0T5taFTTOy"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ca0e77ae-2c96-4904-b3d4-5393cca2c242" message='#["SLACK Notification sent successfully"]'/>
+	</flow>
+	<flow name="sms-notification" doc:id="bdeef838-5824-4978-bbb4-f01c5e5cbee4" >
+		<jms:listener doc:name="SMS Subscriber" doc:id="fc2490d4-a8d2-41de-8685-3ae6e59b795b" config-ref="JMS_Config" destination="audit.trail.topic" numberOfConsumers="1">
+			<jms:consumer-type >
+				<jms:topic-consumer shared="true" />
+			</jms:consumer-type>
+		</jms:listener>
+		<ee:transform doc:name="Transform Message" doc:id="359ce810-39e7-4b27-a3ba-bb052f0dbad1">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/x-www-form-urlencoded
+---
+{
+    "To": "+21629009266",
+    "From": "+19809832622",
+    "Body": "🏦 Transaction Alert! ID: " ++ payload.transactionId ++ 
+           " | Amount: " ++ payload.amount as String ++ " " ++ payload.currency ++ 
+           " | From: " ++ payload.fromAccount ++ 
+           " | To: " ++ payload.toAccount ++ 
+           " | Status: " ++ payload.status
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Send SMS via Twilio" doc:id="dc2d19cf-5a27-4ea9-ac9c-2a290f80fa60" config-ref="HTTP_Request_configuration4" path="/2010-04-01/Accounts/AC3c690b850191f04599a9b390ad7d8f98/Messages.json">
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="41a2b6a4-bb02-478d-ae79-cb997d334f94" message='#["SMS sent successfully"]' />
+	</flow>
+	<flow name="discord-notification" doc:id="1fa69d61-ef12-40fc-8a8b-d2e70680c818" >
+		<jms:listener doc:name="Discord Subscriber" doc:id="4dd9829d-7317-4c9d-b22a-4265195a2841" config-ref="JMS_Config" destination="audit.trail.topic" numberOfConsumers="1">
+			<jms:consumer-type >
+				<jms:topic-consumer shared="true" />
+			</jms:consumer-type>
+		</jms:listener>
+		<ee:transform doc:name="Transform Message" doc:id="e7190deb-21f5-4d75-9964-044a9d526420" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "content": null,
+    "embeds": [
+        {
+            "title": "💳 Transaction Processed",
+            "color": 3066993,
+            "fields": [
+                {
+                    "name": "Transaction ID",
+                    "value": payload.transactionId,
+                    "inline": true
+                },
+                {
+                    "name": "Amount", 
+                    "value": payload.amount as String ++ " " ++ payload.currency,
+                    "inline": true
+                },
+                {
+                    "name": "From Account",
+                    "value": payload.fromAccount,
+                    "inline": true
+                },
+                {
+                    "name": "To Account",
+                    "value": payload.toAccount, 
+                    "inline": true
+                },
+                {
+                    "name": "Status",
+                    "value": payload.status,
+                    "inline": true
+                },
+                {
+                    "name": "Timestamp",
+                    "value": now() as String {format: "yyyy-MM-dd HH:mm:ss"},
+                    "inline": true
+                }
+            ],
+            "footer": {
+                "text": "Banking System"
+            }
+        }
+    ]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Send Discord Notification" doc:id="0e277919-64e9-41d0-b1fb-471893c7cd5b" config-ref="HTTP_Request_configuration5" path="/api/webhooks/1443948783695171676/f5-jTkkf3A4ap9iznFapmvSz7rXiv-R3n36RM4RdhmPBq-7G4ZFWbGvtgM3NV_ZKB8Su">
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="43677617-5ca4-467c-a4ec-e00e693521e2" message='#["Discord notification sent succesfully "]'/>
+	</flow>
+</mule>
